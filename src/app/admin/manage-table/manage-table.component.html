@@ -1,0 +1,55 @@
+<!--Submissions-->
+<div class="row">
+
+  <div class="col">
+
+    <div class="card shadow border">
+
+      <div [ngClass]="{'bg-warning': isArchive, 'bg-success': isSchedule, 'bg-info': isManage, 'bg-secondary': isReject}"
+        class="card-header text-white small font-weight-bold">
+        {{heading | uppercase}}
+      </div>
+
+      <!--Card body-->
+      <div class="card-body">
+        <table datatable class="row-border hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th *ngIf="!isSchedule">Submission Date</th>              
+              <th *ngIf="isSchedule">Collection Date</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th *ngIf="!isSchedule">Items</th>
+              <th *ngIf="isSchedule">Items</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let donation of donations" [routerLink]="['/admin/manage/', donation._id]">
+              <td>{{donation._id}}</td>
+              <td *ngIf="!isSchedule">{{donation.submissionDate | date:'dd/MM/yyyy H:mm:ss'}}</td>
+              <td *ngIf="isSchedule">{{donation.collectionDate | date:'dd/MM/yyyy'}}</td>
+              <td>{{donation.name}}</td>
+              <td>{{donation.address}}</td>
+              <td>{{donation.phone}}</td>
+              <td *ngIf="!isSchedule">{{donation.items.length}}</td>
+              <td *ngIf="isSchedule">
+                <ul>
+                  <ng-container *ngFor="let item of donation.items" >
+                    <li *ngIf="item.collect">                    
+                      {{item.description}}
+                    </li>
+                  </ng-container>
+                </ul>               
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

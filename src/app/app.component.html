@@ -1,0 +1,6 @@
+<app-navbar *ngIf="router.url != '/' && router.url !='/admin' && router.url !='/error' && router.url != '/success'">
+</app-navbar>
+<div id="main" [@triggerName]="prepareRoute(outlet)">  
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>
+<app-footer *ngIf="router.url != '/success'"></app-footer>
